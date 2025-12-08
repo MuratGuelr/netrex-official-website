@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { useLanguage } from './contexts/LanguageContext';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Download, Mic, Zap, Shield, Globe, Users, Github, Twitter, MessageSquare, ChevronRight, Sparkles, Check, X, Server, Cpu } from 'lucide-react';
 
 function App() {
+  const { t, language, setLanguage } = useLanguage();
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
@@ -54,15 +56,27 @@ function App() {
           </motion.div>
           
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-            {['Features', 'Comparison', 'Community'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-white transition-colors relative group">
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all group-hover:w-full"></span>
-              </a>
-            ))}
+            <a href="#features" className="hover:text-white transition-colors relative group">
+              {t('nav.features')}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#comparison" className="hover:text-white transition-colors relative group">
+              {t('nav.comparison')}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#community" className="hover:text-white transition-colors relative group">
+              {t('nav.community')}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all group-hover:w-full"></span>
+            </a>
           </div>
 
           <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setLanguage(language === 'en' ? 'tr' : 'en')}
+              className="p-2 text-gray-400 hover:text-white transition-colors font-bold text-sm"
+            >
+              {language.toUpperCase()}
+            </button>
             <a href="https://github.com/MuratGuelr/netrex-standalone" target="_blank" rel="noreferrer" className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-all">
               <Github size={20} />
             </a>
@@ -74,7 +88,7 @@ function App() {
               whileTap={{ scale: 0.95 }}
               className="hidden sm:flex bg-white text-black px-5 py-2 rounded-full font-medium hover:bg-gray-200 transition-colors text-sm items-center gap-2 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)]"
             >
-              Download
+              {t('nav.download')}
               <Download size={16} />
             </motion.a>
           </div>
@@ -101,7 +115,7 @@ function App() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
                 </span>
-                <span className="font-semibold tracking-wide">{version} RELEASED</span>
+                <span className="font-semibold tracking-wide">{version} {t('hero.released')}</span>
               </motion.div>
               
               <motion.h1 
@@ -110,8 +124,8 @@ function App() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="text-6xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.1]"
               >
-                Future of <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 animate-gradient-x bg-300%">Voice Chat</span>
+                {t('hero.title')} <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 animate-gradient-x bg-300%">{t('hero.subtitle')}</span>
               </motion.h1>
               
               <motion.p 
@@ -119,9 +133,8 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-lg lg:text-xl text-gray-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: t('hero.description') }}
               >
-                Low latency, crystal clear audio, and self-hosted privacy. 
-                <span className="text-white font-medium"> Netrex</span> is built for those who demand quality.
               </motion.p>
               
               <motion.div 
@@ -138,7 +151,7 @@ function App() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-200 to-blue-200 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <Download size={20} className="relative z-10" />
-                  <span className="relative z-10">Download Now</span>
+                  <span className="relative z-10">{t('hero.downloadNow')}</span>
                 </a>
                 <a 
                   href="https://github.com/MuratGuelr/netrex-standalone"
@@ -147,7 +160,7 @@ function App() {
                   className="group px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full font-semibold transition-all flex items-center gap-2 backdrop-blur-sm"
                 >
                   <Github size={20} className="group-hover:text-white transition-colors" />
-                  <span>GitHub</span>
+                  <span>{t('hero.github')}</span>
                   <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 -ml-2 group-hover:ml-0 transition-all" />
                 </a>
               </motion.div>
@@ -159,9 +172,9 @@ function App() {
                 className="mt-12 flex items-center justify-center lg:justify-start gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
               >
                 {/* Tech Stack Icons (Placeholders) */}
-                <div className="flex items-center gap-2"><Cpu size={20} /> Electron</div>
-                <div className="flex items-center gap-2"><Zap size={20} /> WebRTC</div>
-                <div className="flex items-center gap-2"><Server size={20} /> Node.js</div>
+                <div className="flex items-center gap-2"><Cpu size={20} /> {t('hero.tech.electron')}</div>
+                <div className="flex items-center gap-2"><Zap size={20} /> {t('hero.tech.webrtc')}</div>
+                <div className="flex items-center gap-2"><Server size={20} /> {t('hero.tech.nodejs')}</div>
               </motion.div>
             </motion.div>
 
@@ -189,8 +202,8 @@ function App() {
                 {/* Floating Elements with Parallax */}
                 <FloatingBadge 
                   icon={<Mic size={18} />} 
-                  label="Noise Suppression" 
-                  value="Active" 
+                  label={t('hero.badges.noiseSuppression')} 
+                  value={t('hero.badges.active')} 
                   color="green" 
                   position="-top-8 -right-8" 
                   delay={0}
@@ -198,7 +211,7 @@ function App() {
                 
                 <FloatingBadge 
                   icon={<Zap size={18} />} 
-                  label="Latency" 
+                  label={t('hero.badges.latency')} 
                   value="12ms" 
                   color="purple" 
                   position="-bottom-8 -left-8" 
@@ -217,46 +230,46 @@ function App() {
           transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
           className="flex items-center gap-16 text-2xl font-bold text-white/20 uppercase tracking-widest"
         >
-          <span>WebRTC Optimized</span> • <span>End-to-End Encrypted</span> • <span>High Fidelity Audio</span> • <span>Open Source</span> • <span>Self Hosted</span> • 
-          <span>WebRTC Optimized</span> • <span>End-to-End Encrypted</span> • <span>High Fidelity Audio</span> • <span>Open Source</span> • <span>Self Hosted</span> •
+          <span>{t('scrolling.webrtc')}</span> • <span>{t('scrolling.encrypted')}</span> • <span>{t('scrolling.audio')}</span> • <span>{t('scrolling.opensource')}</span> • <span>{t('scrolling.selfhosted')}</span> • 
+          <span>{t('scrolling.webrtc')}</span> • <span>{t('scrolling.encrypted')}</span> • <span>{t('scrolling.audio')}</span> • <span>{t('scrolling.opensource')}</span> • <span>{t('scrolling.selfhosted')}</span> •
         </motion.div>
       </div>
 
       {/* Features Grid */}
       <section id="features" className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <SectionHeader title="Why Choose Netrex?" subtitle="Engineered for performance, designed for humans." />
+          <SectionHeader title={t('features.title')} subtitle={t('features.subtitle')} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <FeatureCard 
               icon={<Mic className="text-purple-400" />}
-              title="Advanced Voice Processing"
-              description="Built-in Noise Gate, Echo Cancellation, and RNNoise suppression for studio-quality communication."
+              title={t('features.cards.voice.title')}
+              description={t('features.cards.voice.desc')}
             />
             <FeatureCard 
               icon={<Zap className="text-yellow-400" />}
-              title="LiveKit Powered"
-              description="Low latency WebRTC architecture ensuring your voice reaches your team the moment you speak."
+              title={t('features.cards.livekit.title')}
+              description={t('features.cards.livekit.desc')}
             />
             <FeatureCard 
               icon={<Shield className="text-green-400" />}
-              title="Secure Authentication"
-              description="Login securely with Google OAuth or stay anonymous. Your session is protected by Firebase Auth."
+              title={t('features.cards.auth.title')}
+              description={t('features.cards.auth.desc')}
             />
             <FeatureCard 
               icon={<Users className="text-blue-400" />}
-              title="Global Hotkeys"
-              description="Control your microphone and audio even when Netrex is in the background. Perfect for gaming."
+              title={t('features.cards.hotkeys.title')}
+              description={t('features.cards.hotkeys.desc')}
             />
             <FeatureCard 
               icon={<Globe className="text-cyan-400" />}
-              title="Hybrid Cloud"
-              description="Powered by Firebase and LiveKit Cloud for maximum reliability and zero server maintenance."
+              title={t('features.cards.cloud.title')}
+              description={t('features.cards.cloud.desc')}
             />
             <FeatureCard 
               icon={<Sparkles className="text-pink-400" />}
-              title="Modern Dark UI"
-              description="A beautiful, clutter-free dark interface with smooth animations and custom themes."
+              title={t('features.cards.ui.title')}
+              description={t('features.cards.ui.desc')}
             />
           </div>
         </div>
@@ -265,19 +278,19 @@ function App() {
       {/* Comparison Section */}
       <section id="comparison" className="py-24 bg-white/[0.02]">
         <div className="max-w-4xl mx-auto px-6">
-          <SectionHeader title="Better by Design" subtitle="See how Netrex compares to the competition." />
+          <SectionHeader title={t('comparison.title')} subtitle={t('comparison.subtitle')} />
           
           <div className="bg-[#111] border border-white/10 rounded-2xl overflow-hidden">
             <div className="grid grid-cols-3 p-6 border-b border-white/10 bg-white/5 text-sm font-semibold uppercase tracking-wider text-gray-400">
-              <div>Feature</div>
-              <div className="text-center">Legacy App</div>
-              <div className="text-center text-purple-400">Netrex</div>
+              <div>{t('comparison.headers.feature')}</div>
+              <div className="text-center">{t('comparison.headers.legacy')}</div>
+              <div className="text-center text-purple-400">{t('comparison.headers.netrex')}</div>
             </div>
-            <ComparisonRow feature="Global Hotkeys" legacy={false} netrex={true} />
-            <ComparisonRow feature="Noise Gate" legacy="Manual" netrex="AI Powered" />
-            <ComparisonRow feature="Architecture" legacy="P2P/Slow" netrex="LiveKit SFU" />
-            <ComparisonRow feature="Authentication" legacy="Complex" netrex="Google / Anon" />
-            <ComparisonRow feature="Audio Codec" legacy="Standard" netrex="Opus + RNNoise" />
+            <ComparisonRow feature={t('comparison.rows.hotkeys')} legacy={false} netrex={true} />
+            <ComparisonRow feature={t('comparison.rows.noiseGate')} legacy={t('comparison.values.manual')} netrex={t('comparison.values.aiPowered')} />
+            <ComparisonRow feature={t('comparison.rows.architecture')} legacy={t('comparison.values.p2p')} netrex={t('comparison.values.sfu')} />
+            <ComparisonRow feature={t('comparison.rows.auth')} legacy={t('comparison.values.complex')} netrex={t('comparison.values.googleAnon')} />
+            <ComparisonRow feature={t('comparison.rows.codec')} legacy={t('comparison.values.standard')} netrex={t('comparison.values.opus')} />
           </div>
         </div>
       </section>
@@ -296,10 +309,10 @@ function App() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-purple-500/10 blur-[100px] group-hover:bg-purple-500/20 transition-colors" />
 
             <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">
-              Ready to switch?
+              {t('download.title')}
             </h2>
             <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-              Join the community of users who value privacy, performance, and design.
+              {t('download.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -310,7 +323,7 @@ function App() {
                 className="px-10 py-5 bg-white text-black rounded-full text-lg font-bold hover:bg-gray-200 transition-all hover:scale-105 active:scale-95 shadow-xl flex items-center gap-3"
               >
                 <Download size={24} />
-                Download for Windows
+                {t('download.windows')}
               </a>
               <a 
                 href="https://github.com/MuratGuelr/netrex-standalone/releases"
@@ -318,7 +331,7 @@ function App() {
                 rel="noreferrer"
                 className="text-gray-400 hover:text-white font-medium transition-colors flex items-center gap-2"
               >
-                All Platforms <ChevronRight size={16} />
+                {t('download.allPlatforms')} <ChevronRight size={16} />
               </a>
             </div>
           </motion.div>
@@ -335,7 +348,7 @@ function App() {
                 <span className="text-2xl font-bold text-gray-200">Netrex</span>
               </div>
               <p className="text-gray-500 max-w-xs leading-relaxed">
-                New generation voice communication client focused on privacy and performance.
+                {t('footer.description')}
               </p>
               <div className="flex gap-4 pt-2">
                 <SocialIcon icon={<Twitter size={20} />} />
@@ -345,14 +358,14 @@ function App() {
             </div>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-16 text-sm">
-              <FooterColumn title="Product" links={['Features', 'Download', 'Changelog', 'Roadmap']} />
-              <FooterColumn title="Community" links={['Discord', 'GitHub', 'Forum', 'Twitter']} />
-              <FooterColumn title="Legal" links={['Privacy', 'Terms', 'Security', 'License']} />
+              <FooterColumn title={t('footer.product.title')} links={t('footer.product.items')} />
+              <FooterColumn title={t('footer.community.title')} links={t('footer.community.items')} />
+              <FooterColumn title={t('footer.legal.title')} links={t('footer.legal.items')} />
             </div>
           </div>
           
           <div className="border-t border-white/5 mt-16 pt-8 text-center text-gray-600 text-sm">
-            &copy; 2024 Netrex Project. Built with &hearts; by @MuratGuelr.
+            {t('footer.copyright')}
           </div>
         </div>
       </footer>
