@@ -179,7 +179,7 @@ function App() {
                 
                 <div className="relative bg-[#0a0a0a] rounded-2xl border border-white/10 shadow-2xl overflow-hidden aspect-[16/10]">
                   <img 
-                    src="/app-mockup.png" 
+                    src="/app-mockup.jpg" 
                     alt="Netrex Application" 
                     className="w-full h-full object-cover"
                   />
