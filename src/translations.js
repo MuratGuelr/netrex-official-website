@@ -10,7 +10,7 @@ export const translations = {
       released: "RELEASED",
       title: "Future of",
       subtitle: "Voice Chat",
-      description: "Low latency, crystal clear audio, and self-hosted privacy. <span class='text-white font-medium'>Netrex</span> is built for those who demand quality.",
+      description: "Secure Desktop Voice Chat Application <span class='text-white font-medium'>Netrex</span> is built for those who demand quality.",
       downloadNow: "Download Now",
       github: "GitHub",
       tech: {
@@ -121,7 +121,7 @@ export const translations = {
       released: "YAYINLANDI",
       title: "Sesli Sohbetin",
       subtitle: "Geleceği",
-      description: "Düşük gecikme, kristal netliğinde ses ve kendi sunucunu barındırma gizliliği. <span class='text-white font-medium'>Netrex</span> kalite arayanlar için tasarlandı.",
+      description: "Güvenli Masaüstü Sesli Sohbet Uygulaması <span class='text-white font-medium'>Netrex</span> kalite arayanlar için tasarlandı.",
       downloadNow: "Hemen İndir",
       github: "GitHub",
       tech: {

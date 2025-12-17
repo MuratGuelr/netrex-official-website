@@ -2,10 +2,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0a0a0a;
-  --color-primary: #6d28d9;
-  --color-secondary: #3b82f6;
-  --color-accent: #d946ef;
+  --color-background: #0f0f11;
+  --color-primary: #6366f1;
+  --color-secondary: #a855f7;
+  --color-accent: #ec4899;
   
   --font-sans: Inter, system-ui, sans-serif;
 
@@ -45,7 +45,7 @@
 
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #050505;
+  background-color: #0f0f11;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden selection:bg-purple-500/30 font-sans">
+    <div className="min-h-screen bg-[#0f0f11] text-white overflow-x-hidden selection:bg-purple-500/30 font-sans">
       
       {/* Dynamic Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
